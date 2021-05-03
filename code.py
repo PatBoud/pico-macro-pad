@@ -1,12 +1,12 @@
 import time
 import board
 import busio
+import math
 
 from configurations import configurations_map
 
 from adafruit_bus_device.i2c_device import I2CDevice
 import adafruit_dotstar
-
 
 from digitalio import DigitalInOut, Direction, Pull
 
@@ -27,18 +27,6 @@ device = I2CDevice(i2c, 0x20)
 class ButtonMode:
 	CONFIGURATION_CHOSER = 0
 	MACRO_CHOSER = 1
-
-# Function to map 0-255 to position on colour wheel
-def colourwheel(pos):
-    if pos < 0 or pos > 255:
-        return (0, 0, 0)
-    if pos < 85:
-        return (255 - pos * 3, pos * 3, 0)
-    if pos < 170:
-        pos -= 85
-        return (0, 255 - pos * 3, pos * 3)
-    pos -= 170
-    return (pos * 3, 0, 255 - pos * 3)
 
 # Read button states from the I2C IO expander on the keypad
 def read_button_states(x, y):
@@ -68,6 +56,8 @@ chosen_configuration = 0
 def updateLeds():
 	global held
 	global last_button_mode
+	global chosen_configuration
+	global configurations_map
 	
 	if button_mode == ButtonMode.CONFIGURATION_CHOSER and last_button_mode != ButtonMode.CONFIGURATION_CHOSER:
 		last_button_mode = ButtonMode.CONFIGURATION_CHOSER
@@ -79,14 +69,15 @@ def updateLeds():
 		
 	elif button_mode == ButtonMode.MACRO_CHOSER and last_button_mode != ButtonMode.MACRO_CHOSER:
 		last_button_mode = ButtonMode.MACRO_CHOSER
+		macros = configurations_map[chosen_configuration].getMacros()
 		for i in range(16):
 			if chosen_configuration < len(configurations_map):
 				if i < min(len(configurations_map[chosen_configuration].getMacros()), 15):
-					pixels[i] = configurations_map[chosen_configuration].getColor()
+					pixels[i] = macros[i].getMacroColor()
 				else: 
 					pixels[i] = (0, 0, 0)
 
-		pixels[15] = (255, 255, 255)
+		pixels[15] = (64, 64, 64)
 		
 # Read button press
 def readButton(delay):
@@ -110,7 +101,7 @@ def readButton(delay):
 					if chosen_configuration < len(configurations_map):
 						macros = configurations_map[chosen_configuration].getMacros()
 						if i < len(macros):
-							logMessage("Selected macro: " + macros[i].getMacroName())
+							logMessage("Selected macro: " + macros[i].getMacroName())							
 							macros[i].getMacro()
 						else:
 							configurations_map[chosen_configuration].nothing()
