@@ -77,7 +77,7 @@ def updateLeds():
 				else: 
 					pixels[i] = (0, 0, 0)
 
-		pixels[15] = (64, 64, 64)
+		pixels[15] = (8, 8, 8)
 		
 # Read button press
 def readButton(delay):

@@ -1,6 +1,5 @@
 import usb_hid
 import time
-import random
 
 from abstract_classes import AbstractConfiguration, AbstractMacro
 from adafruit_hid.keyboard import Keyboard
@@ -22,10 +21,20 @@ group6 = (30,8,64) #indigo
 group7 = (32,8,64) #violet
 group8 = (8,64,64) #teal
 
+color_obs = (0, 0, 200)
 color_git = (247,78,39)
 
 
 consumer_control = ConsumerControl(usb_hid.devices)
+
+class blank(AbstractMacro):
+    def getMacroName():
+        return '<blank>'
+    def getMacro():
+        pass
+    def getMacroColor():
+        return (0, 0, 0)
+
 
 # https://colorbrewer2.org/
 # https://learn.adafruit.com/fancyled-library-for-circuitpython
@@ -142,15 +151,9 @@ class nav_paste(AbstractMacro):
     def getMacroColor():
         return group7
 
-class blank(AbstractMacro):
-    def getMacroName():
-        return 'Blank'
-    def getMacro():
-        pass
-    def getMacroColor():
-        return (0, 0, 0)
-
-#===========================================#
+#============================================================================#
+#============================================================================#
+#============================================================================#
 
 class Media(AbstractConfiguration):
     def getName():
@@ -159,17 +162,17 @@ class Media(AbstractConfiguration):
         return group8
     def getMacros():
         return [
-            med_prev,
-            med_play,
-            med_next,
-            med_volUp,
+            media_prev,
+            media_play,
+            media_next,
+            media_volUp,
             blank,
             blank,
             blank,
-            med_volDown
+            media_volDown
         ]
 
-class med_prev(AbstractMacro):
+class media_prev(AbstractMacro):
     def getMacroName():
         return 'Previous'
     def getMacro():
@@ -177,7 +180,7 @@ class med_prev(AbstractMacro):
     def getMacroColor():
         return group8
 
-class med_play(AbstractMacro):
+class media_play(AbstractMacro):
     def getMacroName():
         return 'Play/Pause'
     def getMacro():
@@ -185,7 +188,7 @@ class med_play(AbstractMacro):
     def getMacroColor():
         return group8
 
-class med_next(AbstractMacro):
+class media_next(AbstractMacro):
     def getMacroName():
         return 'Next'
     def getMacro():
@@ -193,7 +196,7 @@ class med_next(AbstractMacro):
     def getMacroColor():
         return group8
 
-class med_volUp(AbstractMacro):
+class media_volUp(AbstractMacro):
     def getMacroName():
         return 'Volume Up'
     def getMacro():
@@ -203,7 +206,7 @@ class med_volUp(AbstractMacro):
     def getMacroColor():
         return (group7[0]*.25,group7[1]* .75, group7[2]* 1.25) 
 
-class med_volDown(AbstractMacro):
+class media_volDown(AbstractMacro):
     def getMacroName():
         return 'Volume Down'
     def getMacro():
@@ -214,7 +217,9 @@ class med_volDown(AbstractMacro):
         return (group7[0]*.25,group7[1]* .75, group7[2]* 1.25) 
 
 
-#===========================================#
+#============================================================================#
+#============================================================================#
+#============================================================================#
 
 
 class Terminal(AbstractConfiguration):
@@ -224,12 +229,12 @@ class Terminal(AbstractConfiguration):
 		return group4
 	def getMacros():
 		return [
-			Ls, 
-			Pwd,
-			Home
+			terminal_ls, 
+			terminal_pwd,
+			terminal_home
 		]
 
-class Ls(AbstractMacro):
+class terminal_ls(AbstractMacro):
 	def getMacroName():
 		return 'ls -al'
 	def getMacro():
@@ -240,7 +245,7 @@ class Ls(AbstractMacro):
 	def getMacroColor():
 		return (group4[0]*.25,group4[1]* .75, group4[2]* 1.25) 
 
-class Pwd(AbstractMacro):
+class terminal_pwd(AbstractMacro):
 	def getMacroName():
 		return 'pwd'
 	def getMacro():
@@ -249,7 +254,7 @@ class Pwd(AbstractMacro):
 	def getMacroColor():
 		return (group4[0]*.25,group4[1]* .75, group4[2]* 1.25) 
 
-class Home(AbstractMacro):
+class terminal_home(AbstractMacro):
 	def getMacroName():
 		return 'Home'
 	def getMacro():
@@ -259,47 +264,127 @@ class Home(AbstractMacro):
 		return (group4[0]*.25,group4[1]* .75, group4[2]* 1.25) 
 
 
-#===========================================#
+#============================================================================#
+#============================================================================#
+#============================================================================#
 
 class OBS(AbstractConfiguration):
 	def getName():
 		return 'OBS'
 	def getColor():
-		return group5
+		return color_obs
 	def getMacros():
 		return [
-			SelectScene1, 
-			SelectScene2,
-			SelectScene3,
-			MuteOn,
-			MuteOff
+			OBS_Rec,
+			OBS_Pause,
+			blank,
+			blank,
+			OBS_SelectScene1,
+			OBS_SelectScene2,
+			blank,
+			OBS_ZoomIn,
+			OBS_SelectScene3,
+			OBS_SelectScene4,
+			blank,
+			OBS_ZoomOut,
+			OBS_SelectScene5,
+			OBS_SelectScene6
 		]
 
-class SelectScene1(AbstractMacro):
+class OBS_Rec(AbstractMacro):
+	def getMacroName():
+		return 'OBS - Rec'
+	def getMacro():
+		pass
+		# keyboard.send(Keycode.LEFT_ALT, Keycode.ONE)
+	def getMacroColor():
+		return (128, 0, 0) 
+
+class OBS_Pause(AbstractMacro):
+	def getMacroName():
+		return 'OBS - Pause'
+	def getMacro():
+		pass
+		# keyboard.send(Keycode.LEFT_ALT, Keycode.ONE)
+	def getMacroColor():
+		return (128, 128, 128) 
+
+
+class OBS_SelectScene1(AbstractMacro):
 	def getMacroName():
 		return 'Scene 1'
 	def getMacro():
-		keyboard.send(Keycode.LEFT_ALT, Keycode.ONE)
+		pass
 	def getMacroColor():
-		return (group5[0]*.25,group5[1]* .75, group5[2]* 1.25) 
+		return (0, 0, 200)
 
-class SelectScene2(AbstractMacro):
+class OBS_SelectScene2(AbstractMacro):
 	def getMacroName():
 		return 'Scene 2'
 	def getMacro():
-		keyboard.send(Keycode.LEFT_ALT, Keycode.TWO)
+		pass
 	def getMacroColor():
-		return (group5[0]*.25,group5[1]* .75, group5[2]* 1.25) 
+		return (0, 0, 200)
 
-class SelectScene3(AbstractMacro):
+class OBS_SelectScene3(AbstractMacro):
 	def getMacroName():
 		return 'Scene 3'
 	def getMacro():
-		keyboard.send(Keycode.LEFT_ALT, Keycode.THREE)
+		pass
+		#keyboard.send(Keycode.LEFT_ALT, Keycode.THREE)
 	def getMacroColor():
-		return (group5[0]*.25,group5[1]* .75, group5[2]* 1.25) 
+		return (0, 128, 0)
 
-class MuteOn(AbstractMacro):
+class OBS_SelectScene4(AbstractMacro):
+	def getMacroName():
+		return 'Scene 4'
+	def getMacro():
+		pass
+		#keyboard.send(Keycode.LEFT_ALT, Keycode.THREE)
+	def getMacroColor():
+		return (0, 128, 0)
+
+class OBS_SelectScene5(AbstractMacro):
+	def getMacroName():
+		return 'Scene 5'
+	def getMacro():
+		pass
+	def getMacroColor():
+		return (0, 128, 0)
+
+class OBS_SelectScene6(AbstractMacro):
+	def getMacroName():
+		return 'Scene 6'
+	def getMacro():
+		pass
+	def getMacroColor():
+		return (0, 128, 0)
+
+class OBS_ZoomIn(AbstractMacro):
+	def getMacroName():
+		return 'Zoom In'
+	def getMacro():
+		pass
+	def getMacroColor():
+		return (128, 0, 64)
+
+class OBS_ZoomOut(AbstractMacro):
+	def getMacroName():
+		return 'Zoom Out'
+	def getMacro():
+		pass
+	def getMacroColor():
+		return (128, 64, 64)
+
+class OBS_SelectScene4(AbstractMacro):
+	def getMacroName():
+		return 'Scene 4'
+	def getMacro():
+		pass
+	def getMacroColor():
+		return (0, 128, 0)
+
+class OBS_MuteOn(AbstractMacro):
 	def getMacroName():
 		return 'Mute'
 	def getMacro():
@@ -307,7 +392,7 @@ class MuteOn(AbstractMacro):
 	def getMacroColor():
 		return (group5[0]*.25,group5[1]* .75, group5[2]* 1.25) 
 
-class MuteOff(AbstractMacro):
+class OBS_MuteOff(AbstractMacro):
 	def getMacroName():
 		return 'Unmute'
 	def getMacro():
@@ -316,7 +401,9 @@ class MuteOff(AbstractMacro):
 		return (group5[0]*.25,group5[1]* .75, group5[2]* 1.25) 
 
 
-#===========================================#
+#============================================================================#
+#============================================================================#
+#============================================================================#
 
 class Git(AbstractConfiguration):
 	def getName():
@@ -325,14 +412,15 @@ class Git(AbstractConfiguration):
 		return color_git
 	def getMacros():
 		return [
-			GitStatus,
-			GitDiff
+			Git_Status,
+			Git_Diff,
+			Git_AddCommit
 			#MergeDevelop,
 			#MergeMaster,
 			#GitPush
 		]
 
-class GitStatus(AbstractMacro):
+class Git_Status(AbstractMacro):
 	def getMacroName():
 		return "Git status"
 	def getMacro():
@@ -341,7 +429,7 @@ class GitStatus(AbstractMacro):
 	def getMacroColor():
 		return (color_git[0]*.75,color_git[1]* .75, color_git[2]* 1.25) 
 
-class GitDiff(AbstractMacro):
+class Git_Diff(AbstractMacro):
 	def getMacroName():
 		return "Git diff"
 	def getMacro():
@@ -350,95 +438,27 @@ class GitDiff(AbstractMacro):
 	def getMacroColor():
 		return (color_git[0]*.25,color_git[1]* .75, color_git[2]* 1.25) 
 
-class MergeDevelop(AbstractMacro):
+class Git_AddCommit(AbstractMacro):
 	def getMacroName():
-		return "Merge develop into master"
+		return "Git Add + Commit"
 	def getMacro():
-		layout.write("git checkout master")
+		layout.write("git add .")
 		keyboard.send(Keycode.ENTER)
-		time.sleep(0.5)
-		layout.write("git merge develop")
-		keyboard.send(Keycode.ENTER)
+		layout.write("git commit -m ")
+	def getMacroColor():
+		return (color_git[0]*1.25,color_git[1]* .75, color_git[2]* 1.25) 
 
-class MergeMaster(AbstractMacro):
-	def getMacroName():
-		return "Merge master into develop"
-	def getMacro():
-		layout.write("git checkout develop")
-		keyboard.send(Keycode.ENTER)
-		time.sleep(0.5)
-		layout.write("git merge master")
-		keyboard.send(Keycode.ENTER)
-
-class GitPush(AbstractMacro):
+class Git_Push(AbstractMacro):
 	def getMacroName():
 		return "Push"
 	def getMacro():
 		layout.write("git push")
 		keyboard.send(Keycode.ENTER)
 
-#===========================================#
+#============================================================================#
+#============================================================================#
+#============================================================================#
 
 
 # Map your configurations inside this array
-configurations_map = [Navigation, Terminal, Media, OBS, Git] #[Git, Navigation, Terminal] #, GoogleMeet, Obsidian, RandomEstimation, PhpStorm ]	
-
-#=======================================================================
-#disabled configurations
-#=======================================================================
-
-# class OBS(AbstractConfiguration):
-# 	def getName():
-# 		return 'OBS'
-# 	def getColor():
-# 		return (0, 0, 255)
-# 	def getMacros():
-# 		return [
-# 			SelectScene1, 
-# 			SelectScene2,
-# 			SelectScene3,
-# 			MuteOn,
-# 			MuteOff
-# 		]
-
-# class SelectScene1(AbstractMacro):
-# 	def getMacroName():
-# 		return 'Scene 1'
-# 	def getMacro():
-# 		keyboard.send(Keycode.LEFT_ALT, Keycode.ONE)
-
-# class SelectScene2(AbstractMacro):
-# 	def getMacroName():
-# 		return 'Scene 2'
-# 	def getMacro():
-# 		keyboard.send(Keycode.LEFT_ALT, Keycode.TWO)
-
-# class SelectScene3(AbstractMacro):
-# 	def getMacroName():
-# 		return 'Scene 3'
-# 	def getMacro():
-# 		keyboard.send(Keycode.LEFT_ALT, Keycode.THREE)
-
-# class MuteOn(AbstractMacro):
-# 	def getMacroName():
-# 		return 'Mute'
-# 	def getMacro():
-# 		keyboard.send(Keycode.LEFT_ALT, Keycode.FOUR)
-
-# class MuteOff(AbstractMacro):
-# 	def getMacroName():
-# 		return 'Unmute'
-# 	def getMacro():
-# 		keyboard.send(Keycode.LEFT_ALT, Keycode.FIVE)
-
-# class AddNewLog(AbstractMacro):
-# 	def getMacroName():
-# 		return 'New Log'
-# 	def getMacro():
-# 		keyboard.send(Keycode.COMMAND, Keycode.P)
-# 		layout.write("Insert template")
-# 		time.sleep(0.1)
-# 		keyboard.send(Keycode.ENTER)
-# 		layout.write("New log")
-# 		time.sleep(0.1)
-# 		keyboard.send(Keycode.ENTER)
+configurations_map = [OBS, Terminal, Git, Media]

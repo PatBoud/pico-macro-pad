@@ -5,9 +5,9 @@
         "reportMissingModuleSource": "none"
     },
     "python.analysis.extraPaths": [
-        "/Users/patboud/.vscode/extensions/ms-python.devicesimulatorexpress-2020.0.36321/out",
+        null,
         "/Users/patboud/.vscode/extensions/joedevivo.vscode-circuitpython-0.1.13/stubs",
-        "/Users/patboud/Library/Application Support/Code/User/globalStorage/joedevivo.vscode-circuitpython/bundle/20210519/adafruit-circuitpython-bundle-py-20210519/lib",
-        "/Users/patboud/.vscode/extensions/ms-python.devicesimulatorexpress-2020.0.36321/out/base_circuitpython"
-    ]
+        "/Users/patboud/Library/Application Support/Code/User/globalStorage/joedevivo.vscode-circuitpython/bundle/20210519/adafruit-circuitpython-bundle-py-20210519/lib"
+    ],
+    "circuitpython.board.version": null
 }
