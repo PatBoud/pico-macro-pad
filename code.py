@@ -74,10 +74,10 @@ def updateLeds():
 			if chosen_configuration < len(configurations_map):
 				if i < min(len(configurations_map[chosen_configuration].getMacros()), 15):
 					pixels[i] = macros[i].getMacroColor()
-				else: 
+				else:
 					pixels[i] = (0, 0, 0)
 
-		pixels[15] = (8, 8, 8)
+		pixels[15] = (16, 8, 8)
 		
 # Read button press
 def readButton(delay):
@@ -101,8 +101,8 @@ def readButton(delay):
 					if chosen_configuration < len(configurations_map):
 						macros = configurations_map[chosen_configuration].getMacros()
 						if i < len(macros):
-							logMessage("Selected macro: " + macros[i].getMacroName())							
 							macros[i].getMacro()
+							logMessage("Selected macro: " + macros[i].getMacroName())							
 						else:
 							configurations_map[chosen_configuration].nothing()
 
