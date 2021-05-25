@@ -102,7 +102,7 @@ def readButton(delay):
 						macros = configurations_map[chosen_configuration].getMacros()
 						if i < len(macros):
 							macros[i].getMacro()
-							logMessage("Selected macro: " + macros[i].getMacroName())							
+							logMessage("Selected macro: " + configurations_map[chosen_configuration].getName() + " - " + macros[i].getMacroName())
 						else:
 							configurations_map[chosen_configuration].nothing()
 

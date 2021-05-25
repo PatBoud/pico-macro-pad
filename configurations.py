@@ -64,7 +64,7 @@ class OBS(AbstractConfiguration):
 
 class OBS_Rec(AbstractMacro):
     def getMacroName():
-        return "OBS - Rec"
+        return "Rec"
 
     def getMacro():
         keyboard.press(Keycode.F13)
@@ -77,7 +77,7 @@ class OBS_Rec(AbstractMacro):
 
 class OBS_Pause(AbstractMacro):
     def getMacroName():
-        return "OBS - Pause"
+        return "Pause"
 
     def getMacro():
         keyboard.press(Keycode.F14)
@@ -305,7 +305,7 @@ class Git(AbstractConfiguration):
 
 class Git_Status(AbstractMacro):
     def getMacroName():
-        return "Git status"
+        return "Status"
 
     def getMacro():
         layout.write("git status")
@@ -317,7 +317,7 @@ class Git_Status(AbstractMacro):
 
 class Git_Diff(AbstractMacro):
     def getMacroName():
-        return "Git diff"
+        return "Diff"
 
     def getMacro():
         layout.write("git diff")
@@ -329,7 +329,7 @@ class Git_Diff(AbstractMacro):
 
 class Git_AddCommit(AbstractMacro):
     def getMacroName():
-        return "Git Add + Commit"
+        return "Add + Commit"
 
     def getMacro():
         layout.write("git add .")
