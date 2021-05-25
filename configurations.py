@@ -167,11 +167,11 @@ class OBS_ZoomIn(AbstractMacro):
         return "Zoom In"
 
     def getMacro():
-        # ZoomIt
-        keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.Z)
-
         # Cursor Highlight
         keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.C)
+
+        # ZoomIt
+        keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.Z)
 
         # OBS Scene
         keyboard.press(Keycode.F18)
@@ -188,9 +188,10 @@ class OBS_ZoomOut(AbstractMacro):
 
     def getMacro():
         # ZoomIt
-        keyboard.send(
-            Keycode.LEFT_CONTROL, Keycode.LEFT_SHIFT, Keycode.LEFT_ALT, Keycode.Z
-        )
+        keyboard.send(Keycode.LEFT_CONTROL, Keycode.LEFT_SHIFT, Keycode.LEFT_ALT, Keycode.Z)
+
+        # Delay for zoom animation
+        time.sleep(0.1)
 
         # Cursor Highlight
         keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.C)
