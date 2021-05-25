@@ -174,7 +174,9 @@ class OBS_ZoomIn(AbstractMacro):
         keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.C)
 
         # OBS Scene
-        keyboard.send(Keycode.F18)
+        keyboard.press(Keycode.F18)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F18)
 
     def getMacroColor():
         return (250, 120, 0)
@@ -194,7 +196,9 @@ class OBS_ZoomOut(AbstractMacro):
         keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.C)
 
         # OBS Scene
-        keyboard.send(Keycode.F17)
+        keyboard.press(Keycode.F17)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F17)
 
     def getMacroColor():
         return (200, 200, 0)
