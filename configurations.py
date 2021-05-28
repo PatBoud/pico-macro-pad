@@ -45,7 +45,7 @@ class OBS(AbstractConfiguration):
         return [
             OBS_Rec,
             OBS_Pause,
-            blank,
+            OBS_VirtualCam,
             blank,
             blank,
             blank,
@@ -72,7 +72,7 @@ class OBS_Rec(AbstractMacro):
         keyboard.release(Keycode.F13)
 
     def getMacroColor():
-        return (128, 0, 0)
+        return (255, 0, 0)
 
 
 class OBS_Pause(AbstractMacro):
@@ -85,7 +85,20 @@ class OBS_Pause(AbstractMacro):
         keyboard.release(Keycode.F14)
 
     def getMacroColor():
-        return (200, 200, 200)
+        return (255, 255, 255)
+
+
+class OBS_VirtualCam(AbstractMacro):
+    def getMacroName():
+        return "Virtual Camera"
+
+    def getMacro():
+        keyboard.press(Keycode.SHIFT, Keycode.F14)
+        time.sleep(0.05)
+        keyboard.release(Keycode.SHIFT, Keycode.F14)
+
+    def getMacroColor():
+        return (255, 100, 100)
 
 
 class OBS_SelectScene1(AbstractMacro):
@@ -99,7 +112,7 @@ class OBS_SelectScene1(AbstractMacro):
         keyboard.release(Keycode.F15)
 
     def getMacroColor():
-        return (0, 200, 200)
+        return (0, 255, 255)
 
 
 class OBS_SelectScene2(AbstractMacro):
@@ -113,7 +126,7 @@ class OBS_SelectScene2(AbstractMacro):
         keyboard.release(Keycode.F16)
 
     def getMacroColor():
-        return (0, 0, 250)
+        return (0, 0, 255)
 
 
 class OBS_SelectScene3(AbstractMacro):
@@ -127,7 +140,7 @@ class OBS_SelectScene3(AbstractMacro):
         keyboard.release(Keycode.F17)
 
     def getMacroColor():
-        return (0, 200, 0)
+        return (0, 255, 0)
 
 
 class OBS_SelectScene4(AbstractMacro):
@@ -140,7 +153,7 @@ class OBS_SelectScene4(AbstractMacro):
         keyboard.release(Keycode.F18)
 
     def getMacroColor():
-        return (200, 200, 0)
+        return (255, 255, 0)
 
 
 class OBS_SelectScene5(AbstractMacro):
@@ -151,7 +164,7 @@ class OBS_SelectScene5(AbstractMacro):
         pass
 
     def getMacroColor():
-        return (0, 0, 250)
+        return (0, 0, 255)
 
 
 class OBS_SelectScene6(AbstractMacro):
@@ -182,7 +195,7 @@ class OBS_ZoomIn(AbstractMacro):
         keyboard.release(Keycode.F18)
 
     def getMacroColor():
-        return (250, 120, 0)
+        return (255, 120, 0)
 
 
 class OBS_ZoomOut(AbstractMacro):
@@ -205,7 +218,7 @@ class OBS_ZoomOut(AbstractMacro):
         keyboard.release(Keycode.F17)
 
     def getMacroColor():
-        return (200, 200, 0)
+        return (255, 255, 0)
 
 
 class OBS_MuteOn(AbstractMacro):
