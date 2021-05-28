@@ -85,7 +85,7 @@ class OBS_Pause(AbstractMacro):
         keyboard.release(Keycode.F14)
 
     def getMacroColor():
-        return (255, 255, 255)
+        return (255, 255, 140)
 
 
 class OBS_VirtualCam(AbstractMacro):
@@ -98,7 +98,7 @@ class OBS_VirtualCam(AbstractMacro):
         keyboard.release(Keycode.SHIFT, Keycode.F14)
 
     def getMacroColor():
-        return (255, 100, 100)
+        return (100, 0, 255)
 
 
 class OBS_SelectScene1(AbstractMacro):
