@@ -1,284 +1,365 @@
 import usb_hid
 import time
-import random
 
 from abstract_classes import AbstractConfiguration, AbstractMacro
 from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
 from adafruit_hid.keycode import Keycode
 
+from adafruit_hid.consumer_control import ConsumerControl
+from adafruit_hid.consumer_control_code import ConsumerControlCode
+
 keyboard = Keyboard(usb_hid.devices)
 layout = KeyboardLayoutUS(keyboard)
+consumer_control = ConsumerControl(usb_hid.devices)
 
-## CONFIGURATIONS ##
 
-class Terminal(AbstractConfiguration):
-	def getName():
-		return 'Terminal'
-	def getColor():
-		return (0, 255, 0)
-	def getMacros():
-		return [
-			Ls, 
-			Pwd,
-			Home
-		]
+class blank(AbstractMacro):
+    def getMacroName():
+        return "<blank>"
 
-class GoogleMeet(AbstractConfiguration):
-	def getName():
-		return 'Google Meet'
-	def getColor():
-		return (255, 128, 0)
-	def getMacros():
-		return [
-			ToggleMicrophone, 
-			ToggleWebcam
-		]
+    def getMacro():
+        pass
+
+    def getMacroColor():
+        return (0, 0, 0)
+
+
+# https://colorbrewer2.org/
+# https://learn.adafruit.com/fancyled-library-for-circuitpython
+
+
+# ============================================================================
+# ============================================================================
+# ============================================================================
+
 
 class OBS(AbstractConfiguration):
-	def getName():
-		return 'OBS'
-	def getColor():
-		return (0, 0, 255)
-	def getMacros():
-		return [
-			SelectScene1, 
-			SelectScene2,
-			SelectScene3,
-			MuteOn,
-			MuteOff
-		]
+    def getName():
+        return "OBS"
 
-class Obsidian(AbstractConfiguration):
-	def getName():
-		return 'Obsidian'
-	def getColor():
-		return (51, 51, 255)
-	def getMacros():
-		return [
-			AddNewLog
-		]
+    def getColor():
+        return (0, 0, 250)
+
+    def getMacros():
+        return [
+            OBS_Rec,
+            OBS_Pause,
+            blank,
+            blank,
+            blank,
+            blank,
+            blank,
+            OBS_ZoomIn,
+            OBS_SelectScene1,
+            OBS_SelectScene2,
+            blank,
+            OBS_ZoomOut,
+            OBS_SelectScene3,
+            blank,
+            blank,
+            blank,
+        ]
+
+
+class OBS_Rec(AbstractMacro):
+    def getMacroName():
+        return "Rec"
+
+    def getMacro():
+        keyboard.press(Keycode.F13)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F13)
+
+    def getMacroColor():
+        return (128, 0, 0)
+
+
+class OBS_Pause(AbstractMacro):
+    def getMacroName():
+        return "Pause"
+
+    def getMacro():
+        keyboard.press(Keycode.F14)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F14)
+
+    def getMacroColor():
+        return (200, 200, 200)
+
+
+class OBS_SelectScene1(AbstractMacro):
+    def getMacroName():
+        return "Scene 1"
+
+    def getMacro():
+        #Fond et logo MUTE
+        keyboard.press(Keycode.F15)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F15)
+
+    def getMacroColor():
+        return (0, 200, 200)
+
+
+class OBS_SelectScene2(AbstractMacro):
+    def getMacroName():
+        return "Scene 2"
+
+    def getMacro():
+        #Webcam avec nom
+        keyboard.press(Keycode.F16)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F16)
+
+    def getMacroColor():
+        return (0, 0, 250)
+
+
+class OBS_SelectScene3(AbstractMacro):
+    def getMacroName():
+        return "Scene 3"
+
+    def getMacro():
+        #Screencast avec pointeur
+        keyboard.press(Keycode.F17)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F17)
+
+    def getMacroColor():
+        return (0, 200, 0)
+
+
+class OBS_SelectScene4(AbstractMacro):
+    def getMacroName():
+        return "Scene 4"
+
+    def getMacro():
+        keyboard.press(Keycode.F18)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F18)
+
+    def getMacroColor():
+        return (200, 200, 0)
+
+
+class OBS_SelectScene5(AbstractMacro):
+    def getMacroName():
+        return "Scene 5"
+
+    def getMacro():
+        pass
+
+    def getMacroColor():
+        return (0, 0, 250)
+
+
+class OBS_SelectScene6(AbstractMacro):
+    def getMacroName():
+        return "Scene 6"
+
+    def getMacro():
+        pass
+
+    def getMacroColor():
+        return (0, 128, 0)
+
+
+class OBS_ZoomIn(AbstractMacro):
+    def getMacroName():
+        return "Zoom In"
+
+    def getMacro():
+        # Cursor Highlight
+        keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.C)
+
+        # ZoomIt
+        keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.Z)
+
+        # OBS Scene Screencast SANS pointeur
+        keyboard.press(Keycode.F18)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F18)
+
+    def getMacroColor():
+        return (250, 120, 0)
+
+
+class OBS_ZoomOut(AbstractMacro):
+    def getMacroName():
+        return "Zoom Out"
+
+    def getMacro():
+        # ZoomIt
+        keyboard.send(Keycode.LEFT_CONTROL, Keycode.LEFT_SHIFT, Keycode.LEFT_ALT, Keycode.Z)
+
+        # Delay for zoom animation
+        time.sleep(0.1)
+
+        # Cursor Highlight
+        keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.C)
+
+        # OBS Scene Screencast avec pointeur
+        keyboard.press(Keycode.F17)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F17)
+
+    def getMacroColor():
+        return (200, 200, 0)
+
+
+class OBS_MuteOn(AbstractMacro):
+    def getMacroName():
+        return "Mute"
+
+    def getMacro():
+        pass
+
+    def getMacroColor():
+        return (0, 0, 128)
+
+
+class OBS_MuteOff(AbstractMacro):
+    def getMacroName():
+        return "Unmute"
+
+    def getMacro():
+        pass
+
+    def getMacroColor():
+        return (0, 0, 128)
+
+
+# ============================================================================
+# ============================================================================
+# ============================================================================
+
+
+class Terminal(AbstractConfiguration):
+    def getName():
+        return "Terminal"
+
+    def getColor():
+        return (0, 255, 0)
+
+    def getMacros():
+        return [terminal_ls, terminal_pwd, terminal_home]
+
+
+class terminal_ls(AbstractMacro):
+    def getMacroName():
+        return "ls -al"
+
+    def getMacro():
+        layout.write("ls ")
+        keyboard.send(Keycode.KEYPAD_MINUS)
+        layout.write("al")
+        keyboard.send(Keycode.ENTER)
+
+    def getMacroColor():
+        return (0, 200, 0)
+
+
+class terminal_pwd(AbstractMacro):
+    def getMacroName():
+        return "pwd"
+
+    def getMacro():
+        layout.write("pwd")
+        keyboard.send(Keycode.ENTER)
+
+    def getMacroColor():
+        return (0, 200, 0)
+
+
+class terminal_home(AbstractMacro):
+    def getMacroName():
+        return "Home"
+
+    def getMacro():
+        layout.write("cd ")
+        keyboard.send(Keycode.ENTER)
+
+    def getMacroColor():
+        return (0, 200, 0)
+
+
+# ============================================================================
+# ============================================================================
+# ============================================================================
+
 
 class Git(AbstractConfiguration):
-	def getName():
-		return 'GIT'
-	def getColor():
-		return (247, 78, 39)
-	def getMacros():
-		return [
-			MergeDevelop,
-			MergeMaster,
-			GitPush
-		]
+    def getName():
+        return "GIT"
 
-class RandomEstimation(AbstractConfiguration):
-	def getName():
-		return 'Random Esteem'
-	def getColor():
-		return (255, 0, 0)
-	def getMacros():
-		return [
-			OneWeekEsteem, 
-			OneMonthEsteem,
-			SixMonthsEsteem
-		]
+    def getColor():
+        return (247, 78, 39)
 
-class PhpStorm(AbstractConfiguration):
-	def getName():
-		return 'PHPStorm'
-	def getColor():
-		return (232, 49, 123)
-	def getMacros():
-		return [
-			OpenInTerminal,
-			Rename,
-			ComposerAutoload,
-			ListenForDebug,
-			StepOver,
-			StepInto,
-			StepOut,
-			NextBreakpoint
-		]
+    def getMacros():
+        return [
+            Git_Status,
+            Git_Diff,
+            Git_AddCommit
+            # MergeDevelop,
+            # MergeMaster,
+            # GitPush
+        ]
 
-## COMMANDS ##
 
-class OpenInTerminal(AbstractMacro):
-	def getMacroName():
-		return 'Open in terminal'
-	def getMacro():
-		keyboard.send(Keycode.ALT, Keycode.T)
+class Git_Status(AbstractMacro):
+    def getMacroName():
+        return "Status"
 
-class Rename(AbstractMacro):
-	def getMacroName():
-		return 'Rename'
-	def getMacro():
-		keyboard.send(Keycode.SHIFT, Keycode.F6)
+    def getMacro():
+        layout.write("git status")
+        keyboard.send(Keycode.ENTER)
 
-class ListenForDebug(AbstractMacro):
-	def getMacroName():
-		return 'Listen for debug'
-	def getMacro():
-		keyboard.send(Keycode.ALT, Keycode.D)
+    def getMacroColor():
+        return (247, 78, 39)
 
-class StepOver(AbstractMacro):
-	def getMacroName():
-		return 'Step over'
-	def getMacro():
-		keyboard.send(Keycode.F8)
 
-class StepInto(AbstractMacro):
-	def getMacroName():
-		return 'Step into'
-	def getMacro():
-		keyboard.send(Keycode.F7)
+class Git_Diff(AbstractMacro):
+    def getMacroName():
+        return "Diff"
 
-class StepOut(AbstractMacro):
-	def getMacroName():
-		return 'Step out'
-	def getMacro():
-		keyboard.send(Keycode.SHIFT, Keycode.F8)
+    def getMacro():
+        layout.write("git diff")
+        keyboard.send(Keycode.ENTER)
 
-class NextBreakpoint(AbstractMacro):
-	def getMacroName():
-		return 'Next breakpoint'
-	def getMacro():
-		keyboard.send(Keycode.ALT, Keycode.COMMAND, Keycode.R)
+    def getMacroColor():
+        return (247, 78, 39)
 
-class ComposerAutoload(AbstractMacro):
-	def getMacroName():
-		return 'Composer autoload'
-	def getMacro():
-		layout.write('composer dump')
-		keyboard.send(Keycode.KEYPAD_MINUS)
-		layout.write('autoload')
-		keyboard.send(Keycode.ENTER)
 
-class OneWeekEsteem(AbstractMacro):
-	def getMacroName():
-		return '< 1 week'
-	def getMacro():
-		layout.write(str(random.randint(1, 5)))
-		keyboard.send(Keycode.ENTER)
+class Git_AddCommit(AbstractMacro):
+    def getMacroName():
+        return "Add + Commit"
 
-class OneMonthEsteem(AbstractMacro):
-	def getMacroName():
-		return '< 1 month'
-	def getMacro():
-		layout.write(str(random.randint(5, 20)))
-		keyboard.send(Keycode.ENTER)
+    def getMacro():
+        layout.write("git add .")
+        keyboard.send(Keycode.ENTER)
+        layout.write("git commit -m ")
 
-class SixMonthsEsteem(AbstractMacro):
-	def getMacroName():
-		return '< 6 months'
-	def getMacro():
-		layout.write(str(random.randint(20, 120)))
-		keyboard.send(Keycode.ENTER)
-		
+    def getMacroColor():
+        return (247, 78, 39)
 
-class Ls(AbstractMacro):
-	def getMacroName():
-		return 'ls -al'
-	def getMacro():
-		layout.write("ls ")
-		keyboard.send(Keycode.KEYPAD_MINUS)
-		layout.write("al")
-		keyboard.send(Keycode.ENTER)
 
-class Pwd(AbstractMacro):
-	def getMacroName():
-		return 'pwd'
-	def getMacro():
-		layout.write("pwd")
-		keyboard.send(Keycode.ENTER)
+class Git_Push(AbstractMacro):
+    def getMacroName():
+        return "Push"
 
-class Home(AbstractMacro):
-	def getMacroName():
-		return 'Home'
-	def getMacro():
-		layout.write("cd ")
-		keyboard.send(Keycode.ENTER)
+    def getMacro():
+        layout.write("git push")
+        keyboard.send(Keycode.ENTER)
 
-class ToggleMicrophone(AbstractMacro):
-	def getMacroName():
-		return 'Toggle Microphone'
-	def getMacro():
-		keyboard.send(Keycode.COMMAND, Keycode.D)
+    def getMacroColor():
+        return (247, 78, 39)
 
-class ToggleWebcam(AbstractMacro):
-	def getMacroName():
-		return 'Toggle Webcam'
-	def getMacro():
-		keyboard.send(Keycode.COMMAND, Keycode.E)
 
-class SelectScene1(AbstractMacro):
-	def getMacroName():
-		return 'Scene 1'
-	def getMacro():
-		keyboard.send(Keycode.LEFT_ALT, Keycode.ONE)
+# ============================================================================#
+# ============================================================================#
+# ============================================================================#
 
-class SelectScene2(AbstractMacro):
-	def getMacroName():
-		return 'Scene 2'
-	def getMacro():
-		keyboard.send(Keycode.LEFT_ALT, Keycode.TWO)
-
-class SelectScene3(AbstractMacro):
-	def getMacroName():
-		return 'Scene 3'
-	def getMacro():
-		keyboard.send(Keycode.LEFT_ALT, Keycode.THREE)
-
-class MuteOn(AbstractMacro):
-	def getMacroName():
-		return 'Mute'
-	def getMacro():
-		keyboard.send(Keycode.LEFT_ALT, Keycode.FOUR)
-
-class MuteOff(AbstractMacro):
-	def getMacroName():
-		return 'Unmute'
-	def getMacro():
-		keyboard.send(Keycode.LEFT_ALT, Keycode.FIVE)
-
-class AddNewLog(AbstractMacro):
-	def getMacroName():
-		return 'New Log'
-	def getMacro():
-		keyboard.send(Keycode.COMMAND, Keycode.P)
-		layout.write("Insert template")
-		time.sleep(0.1)
-		keyboard.send(Keycode.ENTER)
-		layout.write("New log")
-		time.sleep(0.1)
-		keyboard.send(Keycode.ENTER)
-
-class MergeDevelop(AbstractMacro):
-	def getMacroName():
-		return "Merge develop into master"
-	def getMacro():
-		layout.write("git checkout master")
-		keyboard.send(Keycode.ENTER)
-		time.sleep(0.5)
-		layout.write("git merge develop")
-		keyboard.send(Keycode.ENTER)
-
-class MergeMaster(AbstractMacro):
-	def getMacroName():
-		return "Merge master into develop"
-	def getMacro():
-		layout.write("git checkout develop")
-		keyboard.send(Keycode.ENTER)
-		time.sleep(0.5)
-		layout.write("git merge master")
-		keyboard.send(Keycode.ENTER)
-
-class GitPush(AbstractMacro):
-	def getMacroName():
-		return "Push"
-	def getMacro():
-		layout.write("git push")
-		keyboard.send(Keycode.ENTER)
-		
 
 # Map your configurations inside this array
-configurations_map = [Terminal, GoogleMeet, Obsidian, RandomEstimation, PhpStorm, Git ]	
+configurations_map = [OBS, Terminal, Git]

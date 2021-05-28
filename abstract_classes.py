@@ -19,3 +19,5 @@ class AbstractMacro:
 	# Here you will implement the actions of your macro
 	def getMacro():
 		pass
+	def getMacroColor():
+		return (0 ,0 ,0)
