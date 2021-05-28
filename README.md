@@ -1,3 +1,22 @@
+# Macro Pad pour RaspberryPi Pico avec Pimoroni RGB Keypad Base
+
+
+Ce projet crée un petit clavier à 16 touches programmables pour lancer des macros dans divers logiciels.
+
+Ma principale utilisation est pour contrôler le logiciel OBS lors de l'enregistrement de vidéos informatives.
+
+Matériel:
+- RaspberryPi Pico : https://www.raspberrypi.org/products/raspberry-pi-pico/
+- Pimoroni Pico RGB Keypad Base : https://shop.pimoroni.com/products/pico-rgb-keypad-base
+- Optionel: Boitier imprimé en 3D
+
+---
+
+Projet original:
+https://github.com/galorin/pico-macro-pad
+
+README original:
+
 # Macro Pad for Raspberry Pi Pico with Pimoroni Pico RGB Keypad Base 
 
 This project creates a little&coloured macro pad with a Raspberry Pi Pico, using the [Pico RGB Keypad Base](https://shop.pimoroni.com/products/pico-rgb-keypad-base) by Pimoroni.
