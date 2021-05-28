@@ -93,6 +93,7 @@ class OBS_SelectScene1(AbstractMacro):
         return "Scene 1"
 
     def getMacro():
+        #Fond et logo MUTE
         keyboard.press(Keycode.F15)
         time.sleep(0.05)
         keyboard.release(Keycode.F15)
@@ -106,6 +107,7 @@ class OBS_SelectScene2(AbstractMacro):
         return "Scene 2"
 
     def getMacro():
+        #Webcam avec nom
         keyboard.press(Keycode.F16)
         time.sleep(0.05)
         keyboard.release(Keycode.F16)
@@ -119,6 +121,7 @@ class OBS_SelectScene3(AbstractMacro):
         return "Scene 3"
 
     def getMacro():
+        #Screencast avec pointeur
         keyboard.press(Keycode.F17)
         time.sleep(0.05)
         keyboard.release(Keycode.F17)
@@ -148,7 +151,7 @@ class OBS_SelectScene5(AbstractMacro):
         pass
 
     def getMacroColor():
-        return (0, 128, 0)
+        return (0, 0, 250)
 
 
 class OBS_SelectScene6(AbstractMacro):
@@ -173,7 +176,7 @@ class OBS_ZoomIn(AbstractMacro):
         # ZoomIt
         keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.Z)
 
-        # OBS Scene
+        # OBS Scene Screencast SANS pointeur
         keyboard.press(Keycode.F18)
         time.sleep(0.05)
         keyboard.release(Keycode.F18)
@@ -196,7 +199,7 @@ class OBS_ZoomOut(AbstractMacro):
         # Cursor Highlight
         keyboard.send(Keycode.CONTROL, Keycode.SHIFT, Keycode.ALT, Keycode.C)
 
-        # OBS Scene
+        # OBS Scene Screencast avec pointeur
         keyboard.press(Keycode.F17)
         time.sleep(0.05)
         keyboard.release(Keycode.F17)
