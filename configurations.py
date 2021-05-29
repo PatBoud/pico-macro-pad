@@ -247,6 +247,90 @@ class OBS_MuteOff(AbstractMacro):
 # ============================================================================
 # ============================================================================
 
+class GarageBand(AbstractConfiguration):
+    def getName():
+        return "GarageBand"
+
+    def getColor():
+        return (255, 255, 0)
+
+    def getMacros():
+        return [
+        GB_Rew,
+        GB_Fwd,
+        GB_Begin,
+        blank,
+        GB_Play,
+        GB_Rec,
+        GB_Loop,
+        ]
+
+class GB_Rew(AbstractMacro):
+    def getMacroName():
+        return "Rewind"
+
+    def getMacro():
+        keyboard.send(Keycode.COMMA)
+
+    def getMacroColor():
+        return (0, 255, 255)
+
+
+class GB_Fwd(AbstractMacro):
+    def getMacroName():
+        return "Forward"
+
+    def getMacro():
+        keyboard.send(Keycode.PERIOD)
+
+    def getMacroColor():
+        return (0, 255, 255)
+
+
+class GB_Begin(AbstractMacro):
+    def getMacroName():
+        return "Beginning"
+
+    def getMacro():
+        keyboard.send(Keycode.KEYPAD_ZERO)
+
+    def getMacroColor():
+        return (0, 0, 255)
+
+class GB_Play(AbstractMacro):
+    def getMacroName():
+        return "Play"
+
+    def getMacro():
+        keyboard.send(Keycode.SPACE)
+
+    def getMacroColor():
+        return (255, 255, 140)
+
+class GB_Rec(AbstractMacro):
+    def getMacroName():
+        return "Record"
+
+    def getMacro():
+        keyboard.send(Keycode.R)
+
+    def getMacroColor():
+        return (255, 0, 0)
+
+class GB_Loop(AbstractMacro):
+    def getMacroName():
+        return "Loop"
+
+    def getMacro():
+        keyboard.send(Keycode.C)
+
+    def getMacroColor():
+        return (255, 255, 0)
+
+# ============================================================================
+# ============================================================================
+# ============================================================================
+
 
 class Terminal(AbstractConfiguration):
     def getName():
@@ -375,4 +459,4 @@ class Git_Push(AbstractMacro):
 
 
 # Map your configurations inside this array
-configurations_map = [OBS, Terminal, Git]
+configurations_map = [OBS, GarageBand, Terminal, Git]
