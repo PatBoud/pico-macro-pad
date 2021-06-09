@@ -43,22 +43,10 @@ class OBS(AbstractConfiguration):
 
     def getMacros():
         return [
-            OBS_Rec,
-            OBS_Pause,
-            OBS_VirtualCam,
-            blank,
-            blank,
-            blank,
-            blank,
-            OBS_ZoomIn,
-            OBS_SelectScene1,
-            OBS_SelectScene2,
-            blank,
-            OBS_ZoomOut,
-            OBS_SelectScene3,
-            blank,
-            blank,
-            blank,
+            OBS_Rec, OBS_Pause, OBS_VirtualCam, blank,
+            blank, blank, blank, OBS_ZoomIn,
+            OBS_SelectScene1, OBS_SelectScene2, OBS_SelectScene5, OBS_ZoomOut,
+            OBS_SelectScene3, blank, blank, blank,
         ]
 
 
@@ -161,10 +149,13 @@ class OBS_SelectScene5(AbstractMacro):
         return "Scene 5"
 
     def getMacro():
-        pass
+        #Webcam Full
+        keyboard.press(Keycode.F19)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F19)
 
     def getMacroColor():
-        return (0, 0, 255)
+        return (0, 80, 255)
 
 
 class OBS_SelectScene6(AbstractMacro):
