@@ -1,6 +1,5 @@
 import usb_hid
 import time
-import patboud_ducky
 
 from abstract_classes import AbstractConfiguration, AbstractMacro
 from adafruit_hid.keyboard import Keyboard
@@ -466,83 +465,6 @@ class Git_Push(AbstractMacro):
 # ============================================================================#
 
 
-
-
-class Ducky(AbstractConfiguration):
-    def getName():
-        return "Ducky"
-
-    def getColor():
-        return (255, 0, 0)
-
-    def getMacros():
-        return [ducky_1, ducky_2, ducky_3, ducky_4]
-
-
-class ducky_1(AbstractMacro):
-    def getMacroName():
-        return "Ouvrir Powershell"
-
-    def getMacro():
-        duck = patboud_ducky.Ducky("ducky/snippets/powershell.txt", keyboard, layout)
-        result = True
-
-        while result is not False:
-            result = duck.loop()
-
-    def getMacroColor():
-        return (220, 0, 0)
-
-
-class ducky_2(AbstractMacro):
-    def getMacroName():
-        return "Bart"
-
-    def getMacro():
-        duck = patboud_ducky.Ducky("ducky/bart.txt", keyboard, layout)
-        result = True
-
-        while result is not False:
-            result = duck.loop()
-        del duck
-
-    def getMacroColor():
-        return (220, 0, 0)
-
-class ducky_3(AbstractMacro):
-    def getMacroName():
-        return "RickRoll"
-
-    def getMacro():
-        duck = patboud_ducky.Ducky("ducky/rickroll.txt", keyboard, layout)
-        result = True
-
-        while result is not False:
-            result = duck.loop()
-        del duck
-
-    def getMacroColor():
-        return (220, 0, 0)
-
-class ducky_4(AbstractMacro):
-    def getMacroName():
-        return "Notepad test"
-
-    def getMacro():
-        duck = patboud_ducky.Ducky("ducky/test.txt", keyboard, layout)
-        result = True
-        while result is not False:
-            result = duck.loop()
-        del duck
-
-    def getMacroColor():
-        return (220, 0, 0)
-
-# ============================================================================
-# ============================================================================
-# ============================================================================
-
-
 # Map your configurations inside this array
-configurations_map = [OBS, GarageBand, Terminal, Git, Ducky]
+configurations_map = [OBS, GarageBand, Terminal, Git]
 
