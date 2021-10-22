@@ -1,5 +1,6 @@
 import usb_hid
 import time
+import patboud_ducky
 
 from abstract_classes import AbstractConfiguration, AbstractMacro
 from adafruit_hid.keyboard import Keyboard
@@ -46,7 +47,7 @@ class OBS(AbstractConfiguration):
             OBS_Rec, OBS_Pause, OBS_VirtualCam, blank,
             blank, blank, blank, OBS_ZoomIn,
             OBS_SelectScene1, OBS_SelectScene2, OBS_SelectScene5, OBS_ZoomOut,
-            OBS_SelectScene3, blank, blank, blank,
+            OBS_SelectScene3, blank, OBS_SelectScene7, blank,
         ]
 
 
@@ -90,11 +91,11 @@ class OBS_VirtualCam(AbstractMacro):
 
 
 class OBS_SelectScene1(AbstractMacro):
+    # Fond et logo MUTE
     def getMacroName():
         return "Scene 1"
 
     def getMacro():
-        #Fond et logo MUTE
         keyboard.press(Keycode.F15)
         time.sleep(0.05)
         keyboard.release(Keycode.F15)
@@ -104,11 +105,11 @@ class OBS_SelectScene1(AbstractMacro):
 
 
 class OBS_SelectScene2(AbstractMacro):
+    # Webcam avec nom
     def getMacroName():
         return "Scene 2"
 
     def getMacro():
-        #Webcam avec nom
         keyboard.press(Keycode.F16)
         time.sleep(0.05)
         keyboard.release(Keycode.F16)
@@ -118,11 +119,11 @@ class OBS_SelectScene2(AbstractMacro):
 
 
 class OBS_SelectScene3(AbstractMacro):
+    # Screencast avec pointeur
     def getMacroName():
         return "Scene 3"
 
     def getMacro():
-        #Screencast avec pointeur
         keyboard.press(Keycode.F17)
         time.sleep(0.05)
         keyboard.release(Keycode.F17)
@@ -132,24 +133,23 @@ class OBS_SelectScene3(AbstractMacro):
 
 
 class OBS_SelectScene4(AbstractMacro):
+    # ***** LIBRE *****
     def getMacroName():
         return "Scene 4"
 
     def getMacro():
-        keyboard.press(Keycode.F18)
-        time.sleep(0.05)
-        keyboard.release(Keycode.F18)
+        pass
 
     def getMacroColor():
-        return (255, 255, 0)
+        return (100, 100, 100)
 
 
 class OBS_SelectScene5(AbstractMacro):
+    # Webcam Full
     def getMacroName():
         return "Scene 5"
 
     def getMacro():
-        #Webcam Full
         keyboard.press(Keycode.F19)
         time.sleep(0.05)
         keyboard.release(Keycode.F19)
@@ -159,14 +159,30 @@ class OBS_SelectScene5(AbstractMacro):
 
 
 class OBS_SelectScene6(AbstractMacro):
+    # Screencast avec Cam2 sur le clavier
     def getMacroName():
         return "Scene 6"
 
     def getMacro():
-        pass
+        keyboard.press(Keycode.F20)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F20)
 
     def getMacroColor():
-        return (0, 128, 0)
+        return (70, 180, 0)
+
+class OBS_SelectScene7(AbstractMacro):
+    # Cam 2 Full
+    def getMacroName():
+        return "Scene 7"
+
+    def getMacro():
+        keyboard.press(Keycode.F21)
+        time.sleep(0.05)
+        keyboard.release(Keycode.F21)
+
+    def getMacroColor():
+        return (0, 200, 200)
 
 
 class OBS_ZoomIn(AbstractMacro):
@@ -365,11 +381,12 @@ class terminal_home(AbstractMacro):
         return "Home"
 
     def getMacro():
-        layout.write("cd ")
+        layout.write("Salut je suis Alix")
         keyboard.send(Keycode.ENTER)
 
     def getMacroColor():
-        return (0, 200, 0)
+        return (220, 220, 0)
+
 
 
 # ============================================================================
@@ -449,5 +466,83 @@ class Git_Push(AbstractMacro):
 # ============================================================================#
 
 
+
+
+class Ducky(AbstractConfiguration):
+    def getName():
+        return "Ducky"
+
+    def getColor():
+        return (255, 0, 0)
+
+    def getMacros():
+        return [ducky_1, ducky_2, ducky_3, ducky_4]
+
+
+class ducky_1(AbstractMacro):
+    def getMacroName():
+        return "Ouvrir Powershell"
+
+    def getMacro():
+        duck = patboud_ducky.Ducky("ducky/snippets/powershell.txt", keyboard, layout)
+        result = True
+
+        while result is not False:
+            result = duck.loop()
+
+    def getMacroColor():
+        return (220, 0, 0)
+
+
+class ducky_2(AbstractMacro):
+    def getMacroName():
+        return "Bart"
+
+    def getMacro():
+        duck = patboud_ducky.Ducky("ducky/bart.txt", keyboard, layout)
+        result = True
+
+        while result is not False:
+            result = duck.loop()
+        del duck
+
+    def getMacroColor():
+        return (220, 0, 0)
+
+class ducky_3(AbstractMacro):
+    def getMacroName():
+        return "RickRoll"
+
+    def getMacro():
+        duck = patboud_ducky.Ducky("ducky/rickroll.txt", keyboard, layout)
+        result = True
+
+        while result is not False:
+            result = duck.loop()
+        del duck
+
+    def getMacroColor():
+        return (220, 0, 0)
+
+class ducky_4(AbstractMacro):
+    def getMacroName():
+        return "Notepad test"
+
+    def getMacro():
+        duck = patboud_ducky.Ducky("ducky/test.txt", keyboard, layout)
+        result = True
+        while result is not False:
+            result = duck.loop()
+        del duck
+
+    def getMacroColor():
+        return (220, 0, 0)
+
+# ============================================================================
+# ============================================================================
+# ============================================================================
+
+
 # Map your configurations inside this array
-configurations_map = [OBS, GarageBand, Terminal, Git]
+configurations_map = [OBS, GarageBand, Terminal, Git, Ducky]
+
